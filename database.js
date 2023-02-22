@@ -1,29 +1,30 @@
+//The require(‘mongoose’) call above returns a Singleton object. 
+//It means that the first time you call require(‘mongoose’), it 
+//is creating an instance of the Mongoose class and returning it. 
+//On subsequent calls, it will return the same instance that was 
+//created and returned to you the first time because of how module 
+//import/export works in ES6.
 const mongoose = require("mongoose");
-// example uses following sets to allow db but my error require line 7 to true or false
-
 // mongoose.set('useNewUrlParser', true);
 // mongoose.set('useUnifiedTopology', true);
-// mongoose.set('useFindAndModify', true);
-//mongoose.set('strictQuery', false)
-//mongoose.set('strictQuery', false)mongoose.set('useUnifiedTopology', true);
+// mongoose.set('useFindAndModify', false);
+// mongoose.set('useUnifiedTopology', true);
 mongoose.set('strictQuery', false)
-
-
 class Database {
+
     constructor() {
         this.connect();
     }
 
-    connect(){
-// database connection to mongoose where we put password after admin and dtabsae name before ?retryWrites 
-mongoose.connect("mongodb+srv://admin:abc@cluster0.9k13acq.mongodb.net/witterClone-registerRoute?retryWrites=true&w=majority")
-.then(() => {
-    console.log("database connection succesful");
-})
-.catch((err) => {
-    console.log("databse connection error " + err);
-})
-    }  
+    connect() {
+        mongoose.connect("mongodb+srv://admin:abc@cluster0.9k13acq.mongodb.net/?retryWrites=true&w=majority")
+        .then(() => {
+            console.log("database connection successful");
+        })
+        .catch((err) => {
+            console.log("database connection error " + err);
+        })
+    }
 }
 
 module.exports = new Database();

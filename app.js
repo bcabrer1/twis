@@ -2,26 +2,27 @@ const express = require('express');
 const app = express();
 const port = 3003;
 const middleware = require('./middleware')
-const bodyParser = require('body-parser')
 const path = require('path')
+const bodyParser = require("body-parser")
 const mongoose = require("./database");
-
-
 
 const server = app.listen(port, () => console.log("Server listening on port " + port));
 
 app.set("view engine", "pug");
 app.set("views", "views");
 
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 const loginRoute = require('./routes/loginRoutes');
 const registerRoute = require('./routes/registerRoutes');
+const logoutRoute = require('./routes/logout');
 
-app.use("/login", loginRoute);
-app.use("/register", registerRoute);
+app.use("/loginRoutes", loginRoute);
+app.use("/registerRoutes", registerRoute);
+app.use("/logout", logoutRoute);
+
 
 app.get("/", middleware.requireLogin, (req, res, next) => {
 
